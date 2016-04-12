@@ -26,21 +26,22 @@ int main(int ac,char *av[]){
 		int result = rename(file_name1,file_name2);
 		// rename function is error	
 		if(result != 0){
-			if(dostat(file_name2)){ // If file_name is directory
+			if(dostat(file_name2)){ // If file_name2 is directory
 				strcat(file_name2,"/"); // make new path
 				strcat(file_name2,file_name1);
 				result = link(file_name1,file_name2); // move file_name1 to file_name2
 				if(result != 0){ // link function is error
-					printf("\'%s\' does not exist\n",file_name1); // file_name1 does not exist error
-					return 0; 
-				}
-				else{
+					printf("\'%s\' does not exits of directory\n",file_name1); // file_name1 does not exist of directory.
+				}else{ // link function is not error
 					unlink(file_name1); // remove file_name1
 				}
 			}
+			else { // If file_name2 is file
+				printf("\'%s\' does not exits of directory\n",file_name1); // file_name1 does not exist of directory.
+			}
 		}
 	}
-	return 0;
+	return 0; // Program exit.
 }
 
 // file_name2 is checked whether directory.
